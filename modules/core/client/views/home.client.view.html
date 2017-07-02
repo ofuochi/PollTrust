@@ -1,0 +1,68 @@
+<section ng-controller="HomeController">
+  <div class="jumbotron text-center">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+        <h2><strong>PollTrust</strong></h2>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <p class="lead">
+        Realtime polling application with live results
+      </p>
+    </div>
+    <div class="row">
+      <p>
+        <a class="btn btn-primary btn-lg" ng-show="authentication.user" ui-sref="authentication.signup">New polls</a>
+        <a class="btn btn-primary btn-lg" ng-show="authentication.user" ui-sref="authentication.signup">My polls</a>
+        <a class="btn btn-primary btn-lg" ng-if="!authentication.user" ui-sref="authentication.signup">Sign up</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="row" ng-show="authentication.user">
+    <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">New poll</h3>
+        </div>
+        <div class="panel-body">
+          <form ng-submit="submitPoll()" class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-1">
+                <label for="poll-title">Poll Title</label>
+                <input type="text" ng-model="poll.question" class="form-control" id="poll-title" placeholder="Question">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="col-sm-10 col-sm-offset-1">
+                <label for="option1">Options</label>
+                <div ng-repeat="option in poll.options" class="input-group">
+                  <input type="text" ng-model="option.text" class="form-control" id="option{{$index+1}}" placeholder="opt{{$index+1}}">
+                  <span class="input-group-btn" style="background:transparent">
+                    <button ng-click="removeOption($index)" type="button" class="btn btn-default" type="submit" ng-disabled="$index<2">
+                      <span class="glyphicon {{$index > 1 ? 'glyphicon-remove':''}}" aria-hidden="true"></span>
+                  </button>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4 col-sm-offset-4">
+              <br/>
+              <button type="button" ng-click="addOption()" class="btn btn-defualt btn-block">More</button>
+            </div>
+
+            <div class="col-sm-4 col-sm-offset-4">
+              <br/>
+              <button type="submit" class="btn btn-success btn-block">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+  <br>The PollTrust Team.
+</section>
