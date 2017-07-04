@@ -18,16 +18,18 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
       // Create new Poll object
       var poll = new Polls({
         title: this.title,
-        content: this.content
+        content:this.content,
+        options: ['mark','minz']
       });
-
+      console.log(poll);
       // Redirect after save
       poll.$save(function (response) {
         $location.path('polls/' + response._id);
 
         // Clear form fields
         $scope.title = '';
-        $scope.content = '';
+        // $scope.content = '';
+        $scope.options = [{text:"",id:1},{text:"",id:2}];
       }, function (errorResponse) {
         $scope.error = errorResponse.data.message;
       });

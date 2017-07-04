@@ -40,7 +40,7 @@ exports.update = function (req, res) {
   var poll = req.poll;
 
   poll.title = req.body.title;
-  poll.content = req.body.content;
+  poll.options = req.body.options;
 
   poll.save(function (err) {
     if (err) {

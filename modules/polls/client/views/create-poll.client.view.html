@@ -6,16 +6,32 @@
     <form name="pollForm" class="form-horizontal" ng-submit="create(pollForm.$valid)" novalidate>
       <fieldset>
         <div class="form-group" show-errors>
-          <label for="title">Title</label>
+          <label for="title">Poll Title</label>
           <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
           <div ng-messages="pollForm.title.$error" role="alert">
             <p class="help-block error-text" ng-message="required">Poll title is required.</p>
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group" show-errors>
           <label for="content">Content</label>
-          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content"></textarea>
+          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content" required></textarea>
+          <div ng-messages="pollForm.content.$error" role="alert">
+            <p class="help-block error-text" ng-message="required">Content cannot be blank.</p>
+          </div>
         </div>
+
+        <!--<div class="form-group">
+          <label for="option1">Options</label>
+          <div ng-repeat="option in options" class="input-group">
+            <input type="text" ng-model="option.text" class="form-control" id="option{{$index+1}}" placeholder="opt{{$index+1}}">
+            <span class="input-group-btn" style="background:transparent">
+                    <button ng-click="removeOption($index)" type="button" class="btn btn-default" type="submit" ng-disabled="$index<2">
+                      <span class="glyphicon {{$index > 1 ? 'glyphicon-remove':''}}" aria-hidden="true"></span>
+            </button>
+            </span>
+          </div>
+        </div>-->
+
         <div class="form-group">
           <input type="submit" class="btn btn-default">
         </div>
