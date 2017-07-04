@@ -15,7 +15,7 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
 
     //Remove an option
     $scope.removeOption = function(id){
-      poll.options.splice(id, 1);
+      $scope.poll.options.splice(id, 1);
     };
 
     // Create new Poll
@@ -32,7 +32,7 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
       var poll = new Polls({
         title: this.title,
         content:this.content,
-        options: [{text:null},{text:'2'}]
+        options: [{text:null}]
       });
       console.log(poll);
       // Redirect after save

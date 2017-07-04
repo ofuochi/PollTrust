@@ -6,8 +6,8 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
-/**Option1 Schema */
-var Option1Schema = new Schema({
+/**Option Schema */
+var OptionSchema = new Schema({
   text:{
     type:String,
     default:'',
@@ -15,15 +15,7 @@ var Option1Schema = new Schema({
     required:'All options must be filled'
   }
 });
-/**Option2 Schema */
-var Option2Schema = new Schema({
-  text:{
-    type:String,
-    default:'',
-    trim:true,
-    required:'All options must be filled'
-  }
-});
+
 /**
  * Poll Schema
  */
@@ -45,14 +37,18 @@ var PollSchema = new Schema({
   //   required: "Content cannot be blank"
   // },
   options:{
-    type:Array,
-    default: [{Option1Schema},{Option2Schema}],
-    required: "You must fill all options"
+     type: [{
+      type: Schema.Types.ObjectId,
+      ref: 'Option'
+    }],
+    validate: [arrayLimit, '{PATH} must be at least two options']
   },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
   }
 });
-
+function arrayLimit(val) {
+  return val.length > 2;
+}
 mongoose.model('Poll', PollSchema);
