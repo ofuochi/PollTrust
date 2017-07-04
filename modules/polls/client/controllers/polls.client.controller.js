@@ -4,6 +4,19 @@
 angular.module('polls').controller('PollsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Polls',
   function ($scope, $stateParams, $location, Authentication, Polls) {
     $scope.authentication = Authentication;
+    $scope.options = [{text:null},{text:null}];
+
+    //Add an option
+     $scope.addOption = function() {
+      $scope.options.push({
+        text:null
+      });
+    };
+
+    //Remove an option
+    $scope.removeOption = function(id){
+      poll.options.splice(id, 1);
+    };
 
     // Create new Poll
     $scope.create = function (isValid) {
@@ -19,7 +32,7 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
       var poll = new Polls({
         title: this.title,
         content:this.content,
-        options: ['mark','minz']
+        options: [{text:null},{text:'2'}]
       });
       console.log(poll);
       // Redirect after save

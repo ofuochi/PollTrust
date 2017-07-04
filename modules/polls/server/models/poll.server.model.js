@@ -38,16 +38,16 @@ var PollSchema = new Schema({
     trim: true,
     required: 'Title cannot be blank'
   },
-  content: {
-    type: String,
-    default: '',
-    trim: true,
-    required: "Content cannot be blank"
-  },
+  // content: {
+  //   type: String,
+  //   default: '',
+  //   trim: true,
+  //   required: "Content cannot be blank"
+  // },
   options:{
     type:Array,
     default: [{Option1Schema},{Option2Schema}],
-    required: true
+    required: "You must fill all options"
   },
   user: {
     type: Schema.ObjectId,
