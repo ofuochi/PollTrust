@@ -35,7 +35,6 @@ angular.module("polls").controller("PollsController", [
                 title: this.title,
                 options: $scope.options
             });
-            console.log(poll);
             // Redirect after save
             poll.$save(
                 function(response) {
