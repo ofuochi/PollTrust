@@ -34,16 +34,14 @@ angular.module("polls").controller("PollsController", [
             var poll = new Polls({
                 title: this.title,
                 options: $scope.options
+
             });
             // Redirect after save
             poll.$save(
                 function(response) {
                     $location.path("polls/" + response._id);
-
                     // Clear form fields
                     $scope.title = "";
-                    // $scope.content = '';
-                    $scope.options = [{ text: "", id: 1 }, { text: "", id: 2 }];
                 },
                 function(errorResponse) {
                     $scope.error = errorResponse.data.message;
