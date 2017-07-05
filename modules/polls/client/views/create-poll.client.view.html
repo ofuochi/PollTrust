@@ -1,59 +1,41 @@
 <section ng-controller="PollsController">
-  <div class="page-header">
-    <h1>New Poll</h1>
-  </div>
-  <div class="col-md-12">
-    <form name="pollForm" class="form-horizontal" ng-submit="create(pollForm.$valid)" novalidate>
-      <fieldset>
-        <div class="form-group" show-errors>
-          <label for="title">Poll Title</label>
-          <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title">
-          <div ng-messages="pollForm.title.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Poll title is required.</p>
-          </div>
-        </div>
-        <!--<div class="form-group" show-errors>
-          <label for="content">Content</label>
-          <textarea name="content" ng-model="content" id="content" class="form-control" cols="30" rows="10" placeholder="Content" required></textarea>
-          <div ng-messages="pollForm.content.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">Content cannot be blank.</p>
-          </div>
-        </div>-->
+    <div class="page-header">
+        <h1>New Poll</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="pollForm" class="form-horizontal" ng-submit="create(pollForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="title">Poll Title</label>
+                    <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                    <div ng-messages="pollForm.title.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Poll title is required.</p>
+                    </div>
+                </div>
 
-        <div class="form-group" show-errors>
-          <label for="option1">Options</label>
-          <div ng-repeat="option in options" class="input-group">
-            <input name="option{{option._id}}" type="text" ng-model="option.text" class="form-control" id="option{{option._id}}" placeholder="opt{{$index+1}}">
-            <span class="input-group-btn" style="background:transparent">
-              <button ng-click="removeOption($index)" type="button" class="btn btn-default" type="submit" ng-disabled="$index<2">
-                <span class="glyphicon {{$index > 1 ? 'glyphicon-remove':''}}" aria-hidden="true"></span>
-              </button>
-            </span>
-          </div>
-          <div ng-messages="pollForm.option{{option._id}}.$error" role="alert">
-            <p class="help-block error-text" ng-message="required">All options must be filled</p>
-          </div>
-        </div>
 
-        <!--<div class="form-group">
-          <label for="option1">Options</label>
-          <div ng-repeat="option in options" class="input-group">
-            <input type="text" ng-model="option.text" class="form-control" id="option{{$index+1}}" placeholder="opt{{$index+1}}">
-            <span class="input-group-btn" style="background:transparent">
-                    <button ng-click="removeOption($index)" type="button" class="btn btn-default" type="submit" ng-disabled="$index<2">
-                      <span class="glyphicon {{$index > 1 ? 'glyphicon-remove':''}}" aria-hidden="true"></span>
-            </button>
-            </span>
-          </div>
-        </div>-->
+                <div class="form-group">
+                    <label for="option">Options</label>
+                    <div ng-repeat="option in options" class="input-group" show-errors>
+                        <input name="option{{$id}}" id="option{{$id}}" type="text" ng-model="option.text" class="form-control" placeholder="opt{{$index+1}}" required/>
+                        <span class="help-block error-text" ng-messages="pollForm['option'+ $id].$error" role="alert">required</span>
+                        <span class="input-group-btn" ng-style="{'visibility':$index<2?'hidden':'visible'}">
+                          <button type="button" class="btn" ng-click="removeOption($index)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        </span>
+                    </div>
+                </div>
 
-        <div class="form-group">
-          <input type="submit" class="btn btn-default">
-        </div>
-        <div ng-show="error" class="text-danger">
-          <strong ng-bind="error"></strong>
-        </div>
-      </fieldset>
-    </form>
-  </div>
+
+                <div class="form-group">
+                    <button type="button" class="btn" ng-click="addOption()">More</button>&nbsp;&nbsp;&nbsp;
+                    <input type="submit" class="btn btn-success">
+                </div>
+                <div ng-show="error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 </section>

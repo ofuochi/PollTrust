@@ -39,10 +39,7 @@ var PollSchema = new Schema({
     options: {
         type: [OptionSchema]
     },
-    user: {
-        type: Schema.ObjectId,
-        ref: "User"
-    }
+    user: { type: Schema.ObjectId, ref: "User" }
 });
 
 PollSchema.path('options').validate(function(value) {

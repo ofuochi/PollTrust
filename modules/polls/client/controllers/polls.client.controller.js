@@ -8,14 +8,12 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
 
         //Add an option
         $scope.addOption = function() {
-            $scope.options.push({
-                text: null
-            });
+            $scope.options.push({ text: null });
         };
 
         //Remove an option
         $scope.removeOption = function(id) {
-            $scope.poll.options.splice(id, 1);
+            $scope.options.splice(id, 1);
         };
 
         // Create new Poll
@@ -24,14 +22,13 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
 
             if (!isValid) {
                 $scope.$broadcast('show-errors-check-validity', 'pollForm');
-
                 return false;
             }
 
             // Create new Poll object
             var poll = new Polls({
                 title: this.title,
-                options: [{ text: '3' }, { text: 87 }]
+                options: $scope.options
             });
             console.log(poll);
             // Redirect after save
