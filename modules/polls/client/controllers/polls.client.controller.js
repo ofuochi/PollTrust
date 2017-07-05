@@ -1,7 +1,12 @@
-'use strict';
+"use strict";
 
 // Polls controller
-angular.module('polls').controller('PollsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Polls',
+angular.module("polls").controller("PollsController", [
+    "$scope",
+    "$stateParams",
+    "$location",
+    "Authentication",
+    "Polls",
     function($scope, $stateParams, $location, Authentication, Polls) {
         $scope.authentication = Authentication;
         $scope.options = [{ text: null }, { text: null }];
@@ -21,7 +26,7 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
             $scope.error = null;
 
             if (!isValid) {
-                $scope.$broadcast('show-errors-check-validity', 'pollForm');
+                $scope.$broadcast("show-errors-check-validity", "pollForm");
                 return false;
             }
 
@@ -32,16 +37,19 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
             });
             console.log(poll);
             // Redirect after save
-            poll.$save(function(response) {
-                $location.path('polls/' + response._id);
+            poll.$save(
+                function(response) {
+                    $location.path("polls/" + response._id);
 
-                // Clear form fields
-                $scope.title = '';
-                // $scope.content = '';
-                $scope.options = [{ text: "", id: 1 }, { text: "", id: 2 }];
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
+                    // Clear form fields
+                    $scope.title = "";
+                    // $scope.content = '';
+                    $scope.options = [{ text: "", id: 1 }, { text: "", id: 2 }];
+                },
+                function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                }
+            );
         };
 
         // Remove existing Poll
@@ -56,7 +64,7 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
                 }
             } else {
                 $scope.poll.$remove(function() {
-                    $location.path('polls');
+                    $location.path("polls");
                 });
             }
         };
@@ -66,18 +74,21 @@ angular.module('polls').controller('PollsController', ['$scope', '$stateParams',
             $scope.error = null;
 
             if (!isValid) {
-                $scope.$broadcast('show-errors-check-validity', 'pollForm');
+                $scope.$broadcast("show-errors-check-validity", "pollForm");
 
                 return false;
             }
 
             var poll = $scope.poll;
 
-            poll.$update(function() {
-                $location.path('polls/' + poll._id);
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
+            poll.$update(
+                function() {
+                    $location.path("polls/" + poll._id);
+                },
+                function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                }
+            );
         };
 
         // Find a list of Polls
