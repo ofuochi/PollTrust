@@ -16,6 +16,11 @@
       <span ng-bind="poll.created | date:'mediumDate'"></span>
       by
       <span ng-bind="poll.user.displayName"></span>
+      <br/>
+      <span class="text-nowrap">    
+        <span class="glyphicon glyphicon-share-alt" aria-hidden=""></span>&nbsp;
+        <a href = "{{link}}" target="_blank">{{link}}</a>
+      </span>
     </em>
   </small>
     <p class="lead" ng-bind="poll.content"></p>

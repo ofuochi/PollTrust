@@ -34,12 +34,12 @@ angular.module("polls").controller("PollsController", [
             var poll = new Polls({
                 title: this.title,
                 options: $scope.options
-
             });
             // Redirect after save
             poll.$save(
                 function(response) {
                     $location.path("polls/" + response._id);
+
                     // Clear form fields
                     $scope.title = "";
                 },
@@ -95,6 +95,7 @@ angular.module("polls").controller("PollsController", [
 
         // Find existing Poll
         $scope.findOne = function() {
+            $scope.link = $location.path("polls/" + $stateParams.pollId).$$absUrl;
             $scope.poll = Polls.get({
                 pollId: $stateParams.pollId
             });
