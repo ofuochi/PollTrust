@@ -13,6 +13,10 @@ var OptionSchema = new Schema({
         default: "",
         trim: true,
         required: "All options must be filled"
+    },
+    voteCount:{
+        type: Number,
+        default:0
     }
 });
 
