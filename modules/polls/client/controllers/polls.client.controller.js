@@ -103,6 +103,7 @@ angular.module("polls").controller("PollsController", [
 
         $scope.selectOption = function (optionText) {
             $scope.selectedOptionText = optionText;
+            
         };
 
         //Vote on a poll

@@ -35,7 +35,8 @@ var PollSchema = new Schema({
         required: "Title cannot be blank"
     },
     options: {
-        type: [OptionSchema]
+        type: [OptionSchema],
+        required:"Options are required"
     },
     user: { type: Schema.ObjectId, ref: "User" }
 });
