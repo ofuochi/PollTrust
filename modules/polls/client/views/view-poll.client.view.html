@@ -30,7 +30,7 @@
         <md-radio-group ng-model="selectedOptionId">
             <md-radio-button ng-repeat='option in poll.options' ng-click="selectOption(option.text)" class="md-accent md-hue-3" ng-value="option._id"
                 aria-label="aria-hidden">
-                <span class="lead" ng-bind="option.voteCount"></span>
+                <span class="lead" ng-bind="option.text"></span>&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;<span class="lead" ng-bind="option.voteCount"></span>
             </md-radio-button>
 
         </md-radio-group>
