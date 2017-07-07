@@ -18,10 +18,27 @@
       <span ng-bind="poll.user.displayName"></span>
       <br/>
       <span class="text-nowrap">    
+        
         <span class="glyphicon glyphicon-share-alt" aria-hidden=""></span>&nbsp;
         <a href = "{{link}}" target="_blank">{{link}}</a>
       </span>
     </em>
   </small>
-    <p class="lead" ng-bind="poll.content"></p>
+
+    <br/><br/><br/><br/>
+    <md-radio-group>
+        <md-list-item ng-repeat='option in poll.options'>
+            <md-radio-button class="md-accent md-hue-3" ng-value="option._id" aria-label="aria-hidden">
+                <span class="lead" ng-bind="option.text"></span>
+            </md-radio-button>
+        </md-list-item>
+    </md-radio-group>
+    <div class="pull-left" ng-show="authentication.user._id == poll.user._id">
+        <a class="btn btn-primary" ui-sref="polls.edit({pollId: poll._id})">
+            <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn btn-primary" ng-click="remove();">
+            <i class="glyphicon glyphicon-trash"></i>
+        </a>
+    </div>
 </section>
