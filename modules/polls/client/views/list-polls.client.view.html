@@ -11,7 +11,9 @@
         <span ng-bind="poll.user.displayName"></span>
       </small>
       <h4 class="list-group-item-heading" ng-bind="poll.title"></h4>
-      <p class="list-group-item-text" ng-bind="poll.content"></p>
+      <p class="list-group-item-text text-right">
+        votes: <span ng-bind="poll.voters.length"></span>
+      </p>
     </a>
   </div>
   <div class="alert alert-warning text-center" ng-if="polls.$resolved && !polls.length">

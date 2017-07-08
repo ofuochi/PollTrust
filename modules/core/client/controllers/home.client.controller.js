@@ -33,7 +33,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
     //create poll
     $scope.submitPoll = function() {
-      console.log(poll);
     };
   }
 ]);
