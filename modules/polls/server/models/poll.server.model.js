@@ -1,18 +1,18 @@
-"use strict";
+'use strict';
 
 /**
  * Module dependencies.
  */
-var mongoose = require("mongoose"),
+var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 
 /**Option Schema */
 var OptionSchema = new Schema({
   text: {
     type: String,
-    default: "",
+    default: '',
     trim: true,
-    required: "All options must be filled"
+    required: 'All options must be filled'
   },
   voteCount: {
     type: Number,
@@ -30,24 +30,21 @@ var PollSchema = new Schema({
   },
   title: {
     type: String,
-    default: "",
+    default: '',
     trim: true,
-    required: "Title cannot be blank"
+    required: 'Title cannot be blank'
   },
   options: {
     type: [OptionSchema],
-    required: "Options are required"
+    required: 'Options are required'
   },
   user: {
     type: Schema.ObjectId,
-    ref: "User"
-  },
-  voters: {
-    type: Array
+    ref: 'User'
   }
 });
 
-PollSchema.path("options").validate(function (value) {
+PollSchema.path('options').validate(function (value) {
   return value.length >= 2;
-}, "At least two options are required");
-mongoose.model("Poll", PollSchema);
+}, 'At least two options are required');
+mongoose.model('Poll', PollSchema);

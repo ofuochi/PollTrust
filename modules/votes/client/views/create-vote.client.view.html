@@ -1,0 +1,41 @@
+<section ng-controller="VotesController">
+    <div class="page-header">
+        <h1>New Vote</h1>
+    </div>
+    <div class="col-md-12">
+        <form name="voteForm" class="form-horizontal" ng-submit="create(voteForm.$valid)" novalidate>
+            <fieldset>
+                <div class="form-group" show-errors>
+                    <label for="title">Vote Title</label>
+                    <input name="title" type="text" ng-model="title" id="title" class="form-control" placeholder="Title" required>
+                    <div ng-messages="voteForm.title.$error" role="alert">
+                        <p class="help-block error-text" ng-message="required">Vote title is required.</p>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="option">Options</label>
+                    <div ng-repeat="option in options" class="input-group" show-errors>
+                        <input name="option{{$id}}" id="option{{$id}}" type="text" ng-model="option.text" class="form-control" placeholder="opt{{$index+1}}" required/>
+                        <span class="help-block error-text" ng-messages="voteForm['option'+ $id].$error" role="alert">required</span>
+                        <span class="input-group-btn" ng-style="{'visibility':$index<2?'hidden':'visible'}">
+                          <button type="button" class="btn" ng-click="removeOption($index)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <button type="button" class="btn" ng-click="addOption()">More</button>&nbsp;&nbsp;&nbsp;
+                    <input type="submit" class="btn btn-success">
+                </div>
+                <div ng-show="error" class="text-danger">
+                    <strong ng-bind="error"></strong>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</section>

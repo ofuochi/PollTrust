@@ -1,13 +1,14 @@
-"use strict";
+'use strict';
 
 // Polls controller
-angular.module("polls").controller("PollsController", [
-  "$scope",
-  "$stateParams",
-  "$location",
-  "Authentication",
-  "Polls",
-  function ($scope, $stateParams, $location, Authentication, Polls) {
+angular.module('polls').controller('PollsController', [
+  '$scope',
+  '$stateParams',
+  '$location',
+  'Authentication',
+  'Polls',
+  'Votes',
+  function ($scope, $stateParams, $location, Authentication, Polls, Votes) {
     $scope.authentication = Authentication;
     $scope.options = [{
       text: null
@@ -32,7 +33,7 @@ angular.module("polls").controller("PollsController", [
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast("show-errors-check-validity", "pollForm");
+        $scope.$broadcast('show-errors-check-validity', 'pollForm');
         return false;
       }
 
@@ -44,9 +45,8 @@ angular.module("polls").controller("PollsController", [
       // Redirect after save
       poll.$save(
         function (response) {
-          $location.path("polls/" + response._id);
+          $location.path('polls/' + response._id);
           // Clear form fields
-          $scope.title = "";
         },
         function (errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -66,7 +66,7 @@ angular.module("polls").controller("PollsController", [
         }
       } else {
         $scope.poll.$remove(function () {
-          $location.path("polls");
+          $location.path('polls');
         });
       }
     };
@@ -76,7 +76,7 @@ angular.module("polls").controller("PollsController", [
       $scope.error = null;
 
       if (!isValid) {
-        $scope.$broadcast("show-errors-check-validity", "pollForm");
+        $scope.$broadcast('show-errors-check-validity', 'pollForm');
 
         return false;
       }
@@ -85,7 +85,7 @@ angular.module("polls").controller("PollsController", [
 
       poll.$update(
         function () {
-          $location.path("polls/" + poll._id);
+          $location.path('polls/' + poll._id);
         },
         function (errorResponse) {
           $scope.error = errorResponse.data.message;
@@ -100,7 +100,7 @@ angular.module("polls").controller("PollsController", [
 
     // Find existing Poll
     $scope.findOne = function () {
-      $scope.link = $location.path("polls/" + $stateParams.pollId).$$absUrl;
+      $scope.link = $location.path('polls/' + $stateParams.pollId).$$absUrl;
       $scope.poll = Polls.get({
         pollId: $stateParams.pollId
       });
@@ -116,17 +116,29 @@ angular.module("polls").controller("PollsController", [
       var poll = $scope.poll;
       var options = $scope.poll.options;
       var optionId = $scope.selectedOptionId;
-      var optionText = options.find(x => x._id === optionId).text;
-      var voteCount = ++options.find(x => x._id === optionId).voteCount;
+      var optionText = options.find(function (item) {
+        return item._id === optionId;
+      }).text;
+      var voteCount = ++options.find(function (item) {
+        return item._id === optionId;
+      }).voteCount;
 
-      poll.voters.push($scope.authentication.user._id);
-
-      poll.$update(
-        function () {
-          $location.path("polls");
+      var vote = new Votes({
+        _poll: $scope.poll._id,
+        _user: $scope.authentication.user._id || 'IP',
+        choice: {
+          _id: optionId,
+          text: optionText
+        }
+      });
+      vote.$save(function (response) {
+          $location.path('votes/' + response._id);
+          console.log(response.choice);
         },
         function (errorResponse) {
-          $scope.error = errorResponse.data.message;
+          var errorMessage = errorResponse.data.message;
+          $scope.error = errorMessage;
+          console.log(errorMessage);
         }
       );
 
