@@ -16,11 +16,11 @@ exports.create = function (req, res) {
   var vote = new Vote(req.body);
 
   Vote.findOne(
-    {_user:vote._user,_poll:vote._poll},
+    { _user:vote._user,_poll:vote._poll },
     function(err,doc){
       if(doc){
-        console.log(doc._user+"                "+vote._user);
-        console.log(doc._poll+"                "+vote._poll);
+        console.log(doc._user+'                '+vote._user);
+        console.log(doc._poll+'                '+vote._poll);
       }
       if (err) {
         return res.status(400).send({
@@ -28,7 +28,7 @@ exports.create = function (req, res) {
         });
       } 
       if (doc) {
-        console.log("Error here");
+        console.log('Error here');
         var error = new Error('User have voted');
 
         return res.status(400).send({
@@ -36,9 +36,9 @@ exports.create = function (req, res) {
         });
       } 
       Vote.findOneAndUpdate(
-        {'choice._id':vote.choice._id},
-        {$inc:{'choice.count':1}},
-        {new:true},
+        { 'choice._id':vote.choice._id },
+        { $inc:{ 'choice.count':1 } },
+        { new:true },
         function(err,doc){
           if (err) {
             return res.status(400).send({
@@ -87,7 +87,7 @@ exports.update = function (req, res) {
         message: errorHandler.getErrorMessage(err)
       });
     } else {
-      res.json({vote});
+      res.json(vote);
     }
   });
 };
